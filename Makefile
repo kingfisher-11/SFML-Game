@@ -1,11 +1,14 @@
 FLAGS := -lsfml-graphics -lsfml-window -lsfml-system
-OBJECTS := ${patsubst %.cpp, %.o, ${wildcard *.cpp}}
+HEADERS := ${wildcard *.hpp}
+OBJECTS := ${patsubst %.hpp, %.o, ${HEADERS}}
 
 
-c-app: ${OBJECTS}
-	g++ ${OBJECTS} -o c-app ${FLAGS}
+c-app: ${OBJECTS} main.o
+	g++ main.o ${OBJECTS} -o c-app ${FLAGS}
 
-${OBJECTS}: %.o: %.cpp
+${OBJECTS}: %.o: %.cpp %.hpp
+
+main.o: main.cpp
 
 clean:
 	rm ${wildcard *.o}

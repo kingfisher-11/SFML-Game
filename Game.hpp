@@ -2,6 +2,7 @@
 
 #include "SFML/Graphics.hpp"
 #include <iostream>
+#include <cmath>
 
 #include "Player.hpp"
 
@@ -24,6 +25,7 @@ public:
 
     void run();
 
+    void updateDt();
     void updateSfmlEvents();
     void update();
     void render();
