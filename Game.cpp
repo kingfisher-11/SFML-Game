@@ -2,25 +2,28 @@
 
 
 Game::Game()
+:_debug_message("Fonts/Arial.ttf")
 {
     _game_window.create(sf::VideoMode(800, 600), "Game");
-
     _game_window.setFramerateLimit(60);
 
-    _game_clock.restart();
+    _game_view.setSize(sf::Vector2f(_game_window.getSize()));
+    _HUD_view.setSize(sf::Vector2f(_game_window.getSize()));
 
-    _player = new Player(sf::Vector2i(_game_window.getSize()) / 2);
+    _circle.setRadius(100.0);
+    _circle.setOrigin(sf::Vector2f(100.0, 100.0));
+    _circle.setFillColor(sf::Color::Green);
 }
 
 Game::~Game()
 {
-
+    _game_window.close();
 }
 
 
 void Game::run()
 {
-    while(_game_window.isOpen())
+    while(_is_game_running)
     {
         updateDt();
 
@@ -44,9 +47,35 @@ void Game::updateSfmlEvents()
 
     while(_game_window.pollEvent(event))
     {
-        if(event.type == sf::Event::Closed)
+        switch(event.type)
         {
-            _game_window.close();
+            case sf::Event::Closed:
+                _is_game_running = false;
+                break;
+
+            // update view to remain consistent with window size
+            case sf::Event::Resized:
+                _game_view.setSize(event.size.width, event.size.height);
+                _HUD_view.reset(sf::FloatRect(0.0, 0.0, event.size.width, event.size.height));
+                break;
+
+
+            case sf::Event::KeyPressed:
+                switch(event.key.code)
+                {
+                    case sf::Keyboard::Escape:
+                        _is_game_running = false;
+                        break;
+                    
+                    case sf::Keyboard::F12:
+                        _debug_message.setVisibility(!_debug_message.getVisibility());
+                    
+                    default:
+                        break;
+                }
+            
+            default:
+                break;
         }
     }
 
@@ -54,40 +83,58 @@ void Game::updateSfmlEvents()
     // Keyboard Input
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
-        _player->updatePlayerVelocity(500.0, _dt);
+        _player.updatePlayerVelocity(_player.getAcceleration(), _dt);
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
-        _player->updatePlayerVelocity(-500.0, _dt);
+        _player.updatePlayerVelocity(-_player.getAcceleration(), _dt);
     }
     else
     {
-        _player->updatePlayerVelocity(-250.0, _dt);
+        _player.updatePlayerVelocity(-_player.getAcceleration() / 2, _dt);
     }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        _player->updatePlayerRotation(-180.0, _dt);
+        _player.updatePlayerRotation(-_player.getRotationSpeed(), _dt);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        _player->updatePlayerRotation(180.0, _dt);
+        _player.updatePlayerRotation(_player.getRotationSpeed(), _dt);
     }
 }
 
 void Game::update()
 {
-    //system("clear");
-    //std::cout << _dt << std::endl;
+    // useful intermediate variables
+    sf::Vector2f player_position = _player.getSprite().getPosition();
 
-    _player->update(_dt);
+    _player.update(_dt);
+
+    _game_view.setCenter(player_position);
+
+    std::string debug_coordinates_string = "X: " + std::to_string(int(player_position.x)) + "\nY: " + std::to_string(int(player_position.y));
+    _debug_message.setString(debug_coordinates_string);
 }
 
 void Game::render()
 {
     _game_window.clear(sf::Color::Black);
 
-    _game_window.draw(_player->getSprite());
+
+    // game view
+    _game_window.setView(_game_view);
+
+    _game_window.draw(_circle);
+
+    _game_window.draw(_player.getSprite());
+
+    // interface view
+    _game_window.setView(_HUD_view);
+
+    if(_debug_message.getVisibility())
+        _game_window.draw(_debug_message);
+
 
     _game_window.display();
 }

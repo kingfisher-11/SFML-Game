@@ -14,7 +14,7 @@ Player::Player(sf::Vector2i player_coordinates)
 
 Player::~Player()
 {
-
+    
 }
 
 
@@ -23,11 +23,22 @@ sf::Sprite &Player::getSprite()
     return _player_sprite;
 }
 
+const double Player::getAcceleration()
+{
+    return _player_acceleration;
+}
+
+const double Player::getRotationSpeed()
+{
+    return _player_rotation_speed;
+}
+
+
 void Player::updatePlayerVelocity(double acceleration, double dt)
 {
     _player_velocity += acceleration * dt;
 
-    _player_velocity = std::min(_player_velocity, 500.0);
+    _player_velocity = std::min(_player_velocity, _max_player_velocity);
     _player_velocity = std::max(_player_velocity, 0.0);
 }
 
@@ -40,9 +51,7 @@ void Player::update(double dt)
 {
     // Move based on orientation
     double sprite_angle = (_player_sprite.getRotation() - 90) * M_PI / 180;
-    _player_sprite.move(cos(sprite_angle) * _player_velocity * dt, sin(sprite_angle) * _player_velocity * dt);
-
-    debugPrint(_player_velocity);
+    _player_sprite.move(cos(sprite_angle) * _player_velocity * dt, sin(sprite_angle) * _player_velocity * dt);  
 
     _player_sprite.setRotation(_player_rotation);
 }
