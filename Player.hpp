@@ -15,7 +15,7 @@ void debugPrint(T str)
 }
 
 
-class Player
+class Player : public sf::Sprite
 {
 private:
 
@@ -25,7 +25,7 @@ private:
     const double _player_collision_circle = 15.0;
 
     sf::Texture _player_texture;
-    sf::Sprite _player_sprite;
+    //sf::Sprite _player_sprite;
 
     double _player_velocity;
     double _player_rotation;
@@ -34,7 +34,6 @@ public:
     Player(sf::Vector2i = {0, 0});
     ~Player();
 
-    sf::Sprite &getSprite();
     const double getAcceleration();
     const double getRotationSpeed();
 

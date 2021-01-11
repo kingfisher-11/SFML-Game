@@ -112,7 +112,7 @@ void Game::updateSfmlEvents()
 void Game::update()
 {
     // useful intermediate variables
-    sf::Vector2f player_position = _player.getSprite().getPosition();
+    sf::Vector2f player_position = _player.getPosition();
 
     _zone.update(_dt);
 
@@ -136,7 +136,7 @@ void Game::render()
 
     _game_window.draw(_circle);
 
-    _game_window.draw(_player.getSprite());
+    _game_window.draw(_player);
 
     // interface view
     _game_window.setView(_HUD_view);
