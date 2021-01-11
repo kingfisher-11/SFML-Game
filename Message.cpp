@@ -4,7 +4,11 @@
 Message::Message(std::string font_file_path)
 {
     _is_visible = true;
-    _font.loadFromFile(font_file_path);
+
+    if(!_font.loadFromFile(font_file_path))
+    {
+        std::cout << "Font file missing" << std::endl;
+    }
 
     this->setFont(_font);
     this->setString("Hello");

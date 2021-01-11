@@ -2,12 +2,12 @@
 
 
 Game::Game()
-:_debug_message("Fonts/Arial.ttf")
 {
     _game_window.create(sf::VideoMode(800, 600), "Game");
     _game_window.setFramerateLimit(60);
 
     _game_view.setSize(sf::Vector2f(_game_window.getSize()));
+
     _HUD_view.setSize(sf::Vector2f(_game_window.getSize()));
 
     _circle.setRadius(100.0);
@@ -57,6 +57,11 @@ void Game::updateSfmlEvents()
             case sf::Event::Resized:
                 _game_view.setSize(event.size.width, event.size.height);
                 _HUD_view.reset(sf::FloatRect(0.0, 0.0, event.size.width, event.size.height));
+                break;
+
+            // for debug purposes; to be removed for finished game
+            case sf::Event::MouseWheelMoved:
+                _game_view.zoom(1 - 0.1 * event.mouseWheel.delta);
                 break;
 
 
@@ -109,7 +114,9 @@ void Game::update()
     // useful intermediate variables
     sf::Vector2f player_position = _player.getSprite().getPosition();
 
-    _player.update(_dt);
+    _zone.update(_dt);
+
+    _player.update(_dt, _zone);
 
     _game_view.setCenter(player_position);
 
@@ -124,6 +131,8 @@ void Game::render()
 
     // game view
     _game_window.setView(_game_view);
+
+    _game_window.draw(_zone);
 
     _game_window.draw(_circle);
 

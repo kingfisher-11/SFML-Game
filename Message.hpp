@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
+#include <iostream>
 
 // Experimental class: might delete
 // derived from sf::Text with some extra utils like is_visible etc.
@@ -13,7 +14,7 @@ private:
     bool _is_visible;
 public:
 
-    Message(std::string);
+    Message(std::string = "Fonts/Arial.ttf");
     ~Message();
 
     bool getVisibility();

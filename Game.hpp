@@ -7,14 +7,12 @@
 
 #include "Player.hpp"
 #include "Message.hpp"
+#include "Zone.hpp"
 
 
 class Game
 {
 private:
-    //
-    //  TODO: add list of all drawables in order; store by reference to keep track of changes
-    //
 
     // control for game state
     bool _is_game_running = true;
@@ -22,6 +20,7 @@ private:
     // objects
     Message _debug_message;
     Player _player;
+    Zone _zone;
     sf::CircleShape _circle;
 
     // rendering utils

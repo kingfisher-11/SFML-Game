@@ -47,11 +47,24 @@ void Player::updatePlayerRotation(double angle_change, double dt)
     _player_rotation += angle_change * dt;
 }
 
-void Player::update(double dt)
+void Player::update(double dt, Zone &zone)
 {
     // Move based on orientation
     double sprite_angle = (_player_sprite.getRotation() - 90) * M_PI / 180;
     _player_sprite.move(cos(sprite_angle) * _player_velocity * dt, sin(sprite_angle) * _player_velocity * dt);  
+
+    // Check if player is outside of zone
+    double distance_from_zone = std::hypot(_player_sprite.getPosition().x - zone.getPosition().x, _player_sprite.getPosition().y - zone.getPosition().y);
+    
+    if(distance_from_zone > zone.getRadius() - _player_collision_circle)
+    {
+        _player_sprite.setColor(sf::Color::Green);
+    }
+    else
+    {
+        _player_sprite.setColor(sf::Color::Red);
+    }
+    
 
     _player_sprite.setRotation(_player_rotation);
 }

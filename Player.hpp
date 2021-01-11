@@ -4,6 +4,8 @@
 #include <iostream>
 #include <cmath>
 
+#include "Zone.hpp"
+
 
 template <class T>
 void debugPrint(T str)
@@ -20,6 +22,7 @@ private:
     const double _max_player_velocity = 1000.0; // px / s
     const double _player_acceleration = 1000.0; // px / s^2
     const double _player_rotation_speed = 270.0; // degrees / s
+    const double _player_collision_circle = 15.0;
 
     sf::Texture _player_texture;
     sf::Sprite _player_sprite;
@@ -38,5 +41,5 @@ public:
     void updatePlayerVelocity(double, double);
     void updatePlayerRotation(double, double);
 
-    void update(double);
+    void update(double, Zone&);
 };
