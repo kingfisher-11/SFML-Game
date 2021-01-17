@@ -19,16 +19,15 @@ class Player : public sf::Sprite
 {
 private:
 
-    const double _max_player_velocity = 1000.0; // px / s
-    const double _player_acceleration = 1000.0; // px / s^2
-    const double _player_rotation_speed = 270.0; // degrees / s
-    const double _player_collision_circle = 15.0;
+    double _acceleration = 1000.0; // px / s^2
+    double _max_velocity = 500.0; // px / s
+    double _velocity;
+    double _rotation_speed = 270.0; // degrees / s
+    double _collision_circle = 15.0;
+    int _score = 0;
 
-    sf::Texture _player_texture;
+    sf::Texture _texture;
     //sf::Sprite _player_sprite;
-
-    double _player_velocity;
-    double _player_rotation;
 public:
 
     Player(sf::Vector2i = {0, 0});
@@ -36,9 +35,12 @@ public:
 
     const double getAcceleration();
     const double getRotationSpeed();
+    const double getVelocity();
+    const int getScore();
 
-    void updatePlayerVelocity(double, double);
-    void updatePlayerRotation(double, double);
+
+    void setVelocity(double);
+    void setScore(int);
 
     void update(double, Zone&);
 };

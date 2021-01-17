@@ -4,10 +4,12 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <list>
 
 #include "Player.hpp"
 #include "Message.hpp"
 #include "Zone.hpp"
+#include "Coin.hpp"
 
 
 class Game
@@ -19,8 +21,10 @@ private:
 
     // objects
     Message _debug_message;
+    Message _scoreboard;
     Player _player;
     Zone _zone;
+    std::list<Coin>* _coins_test;
     sf::CircleShape _circle;
 
     // rendering utils

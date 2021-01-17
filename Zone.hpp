@@ -7,9 +7,11 @@ class Zone : public sf::CircleShape
 {
 private:
 
-    // zone properties
-    const double _zone_radius = 500.0;
+    
 public:
+
+    // zone properties
+    static constexpr double _radius = 500.0;
 
     Zone();
     ~Zone();

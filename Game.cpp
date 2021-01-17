@@ -13,6 +13,10 @@ Game::Game()
     _circle.setRadius(100.0);
     _circle.setOrigin(sf::Vector2f(100.0, 100.0));
     _circle.setFillColor(sf::Color::Green);
+
+    _debug_message.setPosition(0, 20);
+
+    _coins_test = new std::list<Coin>(10);
 }
 
 Game::~Game()
@@ -88,24 +92,24 @@ void Game::updateSfmlEvents()
     // Keyboard Input
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
-        _player.updatePlayerVelocity(_player.getAcceleration(), _dt);
+        _player.setVelocity(_player.getVelocity() + _player.getAcceleration() * _dt);
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
-        _player.updatePlayerVelocity(-_player.getAcceleration(), _dt);
+        _player.setVelocity(_player.getVelocity() - _player.getAcceleration() * _dt);
     }
     else
     {
-        _player.updatePlayerVelocity(-_player.getAcceleration() / 2, _dt);
+        _player.setVelocity(_player.getVelocity() - _player.getAcceleration() * _dt / 2);
     }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        _player.updatePlayerRotation(-_player.getRotationSpeed(), _dt);
+        _player.setRotation(_player.getRotation() - _player.getRotationSpeed() * _dt);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        _player.updatePlayerRotation(_player.getRotationSpeed(), _dt);
+        _player.setRotation(_player.getRotation() + _player.getRotationSpeed() * _dt);
     }
 }
 
@@ -120,8 +124,11 @@ void Game::update()
 
     _game_view.setCenter(player_position);
 
+    // update messages
     std::string debug_coordinates_string = "X: " + std::to_string(int(player_position.x)) + "\nY: " + std::to_string(int(player_position.y));
     _debug_message.setString(debug_coordinates_string);
+
+    _scoreboard.setString("Score: " + std::to_string(_player.getScore()));
 }
 
 void Game::render()
@@ -138,11 +145,18 @@ void Game::render()
 
     _game_window.draw(_player);
 
+    for(auto it : *_coins_test)
+    {
+        _game_window.draw(it);
+    }
+
     // interface view
     _game_window.setView(_HUD_view);
 
     if(_debug_message.getVisibility())
         _game_window.draw(_debug_message);
+    
+    _game_window.draw(_scoreboard);
 
 
     _game_window.display();
