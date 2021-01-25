@@ -10,6 +10,7 @@
 #include "Message.hpp"
 #include "Zone.hpp"
 #include "Coin.hpp"
+#include "CoinSpawner.hpp"
 
 
 class Game
@@ -24,7 +25,7 @@ private:
     Message _scoreboard;
     Player _player;
     Zone _zone;
-    std::list<Coin>* _coins_test;
+    CoinSpawner _coin_spawner;
     sf::CircleShape _circle;
 
     // rendering utils
@@ -43,7 +44,7 @@ public:
     void run();
 
     void updateDt();
-    void updateSfmlEvents();
+    void updateEvents();
     void update();
     void render();
 };

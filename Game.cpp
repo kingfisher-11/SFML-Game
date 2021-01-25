@@ -15,8 +15,6 @@ Game::Game()
     _circle.setFillColor(sf::Color::Green);
 
     _debug_message.setPosition(0, 20);
-
-    _coins_test = new std::list<Coin>(10);
 }
 
 Game::~Game()
@@ -31,7 +29,7 @@ void Game::run()
     {
         updateDt();
 
-        updateSfmlEvents();
+        updateEvents();
 
         update();
 
@@ -45,7 +43,7 @@ void Game::updateDt()
     _dt = _game_clock.restart().asSeconds();
 }
 
-void Game::updateSfmlEvents()
+void Game::updateEvents()
 {
     sf::Event event;
 
@@ -122,7 +120,14 @@ void Game::update()
 
     _player.update(_dt, _zone);
 
+    _coin_spawner.update(_dt);
+
     _game_view.setCenter(player_position);
+
+
+    // collision detection
+    
+
 
     // update messages
     std::string debug_coordinates_string = "X: " + std::to_string(int(player_position.x)) + "\nY: " + std::to_string(int(player_position.y));
@@ -143,12 +148,12 @@ void Game::render()
 
     _game_window.draw(_circle);
 
-    _game_window.draw(_player);
-
-    for(auto it : *_coins_test)
+    for(auto it : _coin_spawner.getCoins())
     {
         _game_window.draw(it);
     }
+
+    _game_window.draw(_player);
 
     // interface view
     _game_window.setView(_HUD_view);
