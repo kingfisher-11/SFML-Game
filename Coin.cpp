@@ -1,18 +1,15 @@
 #include "Coin.hpp"
 
 
-void Coin::spawnAnimation(double dt)
+Coin::Coin(Zone &zone)
 {
-    this->rotate(pow(dt / 2 - 5, 2));
-}
+    // pointer to zone in game class
+    _zone = &zone;
 
-
-Coin::Coin()
-{
     // randomly generated size, position etc.
-    // 50 is subtracted from distance to ensure that coins are at least 50 px from zone border
+    // 50 is subtracted from distance to ensure that coins are at least 100 px from zone border
     uint angle = Utilities::randInt(0, 360);
-    uint distance_from_origin = Utilities::randInt(0, Zone::_radius - this->getRadius() - 50) ;
+    uint distance_from_origin = Utilities::randInt(0, _zone->getRadius() - this->getRadius() - 100);
 
     this->setRotation(Utilities::randInt(0, 360));
     this->setRadius(Utilities::randInt(_min_radius, _max_radius));
@@ -24,14 +21,13 @@ Coin::Coin()
     this->setPointCount(3);
     this->setFillColor({255, 200, 0, 255});
 
-
     // set coin state
     _state = spawning;
 }
 
 Coin::~Coin()
 {
-
+    _zone = nullptr;
 }
 
 

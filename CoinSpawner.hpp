@@ -21,5 +21,5 @@ public:
     ~CoinSpawner();
 
     std::list<Coin> &getCoins();
-    void update(double);
+    void update(Zone&, double);
 };

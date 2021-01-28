@@ -120,13 +120,31 @@ void Game::update()
 
     _player.update(_dt, _zone);
 
-    _coin_spawner.update(_dt);
+    _coin_spawner.update(_zone,_dt);
+
+    for(auto it = _coin_spawner.getCoins().begin(); it != _coin_spawner.getCoins().end(); it++)
+    {
+        it->update(_dt);
+    }
 
     _game_view.setCenter(player_position);
 
 
     // collision detection
-    
+    for(auto it = _coin_spawner.getCoins().begin(); it != _coin_spawner.getCoins().end();)
+    {
+        int distance = std::hypot(it->getPosition().x - _player.getPosition().x, it->getPosition().y - _player.getPosition().y);
+
+        if(distance <= it->getRadius() + _player.getRadius())
+        {
+            it = _coin_spawner.getCoins().erase(it);
+            _player.addPoints(1);
+        }
+        else
+        {
+            it++;
+        }
+    }
 
 
     // update messages

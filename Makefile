@@ -6,7 +6,7 @@ OBJECTS := ${patsubst %.hpp, %.o, ${HEADERS}}
 c-app: ${OBJECTS} main.o
 	g++ main.o ${OBJECTS} -o c-app ${FLAGS}
 
-main.o: main.cpp ${OBJECTS}
+#main.o: main.cpp ${OBJECTS}
 
 ${OBJECTS}: %.o: %.cpp %.hpp
 

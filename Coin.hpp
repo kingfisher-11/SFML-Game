@@ -18,13 +18,13 @@ private:
 
     double _elapsed = 0.0;
 
+    Zone *_zone;
+
     const u_int _max_radius = 16;
     const u_int _min_radius = 10;
-
-    void spawnAnimation(double);
 public:
 
-    Coin();
+    Coin(Zone&);
     ~Coin();
 
     void update(double);

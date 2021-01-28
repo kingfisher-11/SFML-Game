@@ -7,8 +7,8 @@ Zone::Zone()
     this->setOutlineColor(sf::Color::Red);
     this->setOutlineThickness(2.0);
 
-    this->setRadius(_radius);
-    this->setOrigin(_radius, _radius);
+    this->setRadius(_max_radius);
+    this->setOrigin(_max_radius, _max_radius);
 }
 
 Zone::~Zone()
@@ -19,5 +19,5 @@ Zone::~Zone()
 
 void Zone::update(double dt)
 {
-
+    
 }

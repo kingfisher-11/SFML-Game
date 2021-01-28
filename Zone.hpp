@@ -7,11 +7,10 @@ class Zone : public sf::CircleShape
 {
 private:
 
-    
-public:
+    enum {shrinking, expanding} _state;
 
-    // zone properties
-    static constexpr double _radius = 500.0;
+    double _max_radius = 500;
+public:
 
     Zone();
     ~Zone();

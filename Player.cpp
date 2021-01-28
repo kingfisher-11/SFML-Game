@@ -33,6 +33,11 @@ const double Player::getVelocity()
     return _velocity;
 }
 
+const double Player::getRadius()
+{
+    return _collision_circle;
+}
+
 const int Player::getScore()
 {
     return _score;
@@ -44,9 +49,9 @@ void Player::setVelocity(double velocity)
     _velocity = std::max(std::min(velocity, _max_velocity), 0.0);
 }
 
-void Player::setScore(int score)
+void Player::addPoints(uint points)
 {
-    _score = score;
+    _score += points;
 }
 
 

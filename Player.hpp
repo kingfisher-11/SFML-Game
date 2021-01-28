@@ -36,11 +36,12 @@ public:
     const double getAcceleration();
     const double getRotationSpeed();
     const double getVelocity();
+    const double getRadius();
     const int getScore();
 
 
     void setVelocity(double);
-    void setScore(int);
+    void addPoints(uint);
 
     void update(double, Zone&);
 };
