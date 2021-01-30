@@ -3,7 +3,7 @@
 
 CoinSpawner::CoinSpawner()
 {
-    _spawn_delay = Utilities::randInt(1, 3);
+    _spawn_delay = ut::randInt(1, 3);
     _coins.clear();
 }
 
@@ -26,7 +26,7 @@ void CoinSpawner::update(Zone &zone, double dt)
     if((_elapsed > _spawn_delay) && _coins.size() < 20)
     {
         _elapsed = 0;
-        _spawn_delay = Utilities::randInt(1, 3);
+        _spawn_delay = ut::randInt(1, 3);
         _coins.push_back({zone});
     }
 }

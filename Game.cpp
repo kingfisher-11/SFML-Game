@@ -130,7 +130,21 @@ void Game::update()
     _game_view.setCenter(player_position);
 
 
+    //TODO: move player zone collision here
+
     // collision detection
+    //player
+    if(ut::distance2V(_player.getPosition(), _zone.getPosition()) > _zone.getRadius() - _player.getRadius())
+    {
+        _player.setColor(sf::Color::Green);
+    }
+    else
+    {
+        _player.setColor(sf::Color::Red);
+    }
+
+
+    //coins
     for(auto it = _coin_spawner.getCoins().begin(); it != _coin_spawner.getCoins().end();)
     {
         int distance = std::hypot(it->getPosition().x - _player.getPosition().x, it->getPosition().y - _player.getPosition().y);
@@ -145,7 +159,6 @@ void Game::update()
             it++;
         }
     }
-
 
     // update messages
     std::string debug_coordinates_string = "X: " + std::to_string(int(player_position.x)) + "\nY: " + std::to_string(int(player_position.y));
@@ -162,9 +175,9 @@ void Game::render()
     // game view
     _game_window.setView(_game_view);
 
-    _game_window.draw(_zone);
-
     _game_window.draw(_circle);
+
+    _game_window.draw(_zone);
 
     for(auto it : _coin_spawner.getCoins())
     {

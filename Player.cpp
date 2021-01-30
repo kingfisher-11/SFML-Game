@@ -59,17 +59,5 @@ void Player::update(double dt, Zone &zone)
 {
     // Move based on orientation
     double sprite_angle = (this->getRotation() - 90) * M_PI / 180;
-    this->move(cos(sprite_angle) * _velocity * dt, sin(sprite_angle) * _velocity * dt);  
-
-    // Check if player is outside of zone
-    double distance_from_zone = std::hypot(this->getPosition().x - zone.getPosition().x, this->getPosition().y - zone.getPosition().y);
-    
-    if(distance_from_zone > zone.getRadius() - _collision_circle)
-    {
-        this->setColor(sf::Color::Green);
-    }
-    else
-    {
-        this->setColor(sf::Color::Red);
-    }
+    this->move(cos(sprite_angle) * _velocity * dt, sin(sprite_angle) * _velocity * dt);
 }

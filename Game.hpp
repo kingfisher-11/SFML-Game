@@ -11,6 +11,7 @@
 #include "Zone.hpp"
 #include "Coin.hpp"
 #include "CoinSpawner.hpp"
+#include "Utilities.hpp"
 
 
 class Game
