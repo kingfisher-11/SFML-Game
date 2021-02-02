@@ -28,7 +28,7 @@ void Zone::update(double dt)
     while(_particles.size() < this->getRadius() + 100)
     {
         double angle = (double)ut::randInt(0, 3600) / 10.0;
-        _particles.push_back(sf::Vector2f(this->getRadius() * cos(angle), this->getRadius() * sin(angle)));
+        _particles.push_back(sf::Vector2f(this->getRadius() * cos(angle) + ut::randInt(-10, 10), this->getRadius() * sin(angle) + ut::randInt(-10, 10)));
     }
 
     for(auto it = _particles.begin(); it != _particles.end();)

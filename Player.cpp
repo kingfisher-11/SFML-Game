@@ -7,6 +7,8 @@ Player::Player(sf::Vector2i player_coordinates)
 
     this->setTexture(_texture);
 
+    this->setScale({1.2, 1.2});
+
     this->setPosition(sf::Vector2f(player_coordinates));
 
     this->setOrigin(sf::Vector2f(15.0, 25.0));

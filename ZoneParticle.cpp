@@ -8,8 +8,8 @@ ZoneParticle::ZoneParticle(sf::Vector2f position)
     this->setFillColor(sf::Color::Red);
 
     // initialize random values for attributes
-    _lifespan = (double)ut::randInt(1, 20) / 10.0;
-    _velocity = {(float)ut::randInt(-300, 300) / 10.f, (float)ut::randInt(-300, 300) / 10.f};
+    _lifespan = ut::randDouble(0.1, 2.0);
+    _velocity = {(float)ut::randDouble(-30.0, 30.0), (float)ut::randDouble(-30.0, 30.0)};
 }
 
 ZoneParticle::~ZoneParticle()
@@ -29,7 +29,7 @@ void ZoneParticle::update(double dt)
     }
 
     this->move(_velocity * (float)dt);
-    this->setFillColor({255, 0, 0, sin(M_PI * _elapsed / _lifespan) * 255});
+    this->setFillColor({255, 0, 0, sf::Uint8(sin(M_PI * _elapsed / _lifespan) * 255)});
 }
 
 bool &ZoneParticle::expired()

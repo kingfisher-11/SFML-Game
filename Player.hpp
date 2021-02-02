@@ -20,10 +20,10 @@ class Player : public sf::Sprite
 private:
 
     double _acceleration = 1000.0; // px / s^2
-    double _max_velocity = 500.0; // px / s
+    double _max_velocity = 1000.0; // px / s
     double _velocity;
-    double _rotation_speed = 270.0; // degrees / s
-    double _collision_circle = 15.0;
+    double _rotation_speed = 360.0; // degrees / s
+    double _collision_circle = 30.0;
     int _score = 0;
 
     sf::Texture _texture;

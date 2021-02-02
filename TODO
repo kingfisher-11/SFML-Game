@@ -1,6 +1,16 @@
+------better movement
 --implement states
 
--add red square particles instead of zone border
--make coins dissappear outside of zone
--add coin dissappear animation
--zone reset once a score is reached
+- make coins dissappear outside of zone
+- add coin dissappear animation
+- zone reset once a score is reached
+- move score below player
+- ensure coins don't spawn near one another
+
+
+
+
+
+
+Completed:
+- add red square particles instead of zone border

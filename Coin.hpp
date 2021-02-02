@@ -20,8 +20,8 @@ private:
 
     Zone *_zone;
 
-    const u_int _max_radius = 30;
-    const u_int _min_radius = 20;
+    const u_int _max_radius = 20;
+    const u_int _min_radius = 14;
 public:
 
     Coin(Zone&);
