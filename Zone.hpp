@@ -2,7 +2,10 @@
 
 #include "SFML/Graphics.hpp"
 #include <iostream>
-#include <cmath>
+#include <list>
+
+#include "ZoneParticle.hpp"
+#include "Utilities.hpp"
 
 
 class Zone : public sf::CircleShape
@@ -13,11 +16,14 @@ private:
 
     double _max_radius = 2000;
     double _elapsed = 0;
+
+    std::list<ZoneParticle> _particles;
 public:
 
     Zone();
     ~Zone();
 
     void update(double);
+    const std::list<ZoneParticle> &getParticles();
 };
 

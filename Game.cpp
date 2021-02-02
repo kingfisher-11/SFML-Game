@@ -130,8 +130,6 @@ void Game::update()
     _game_view.setCenter(player_position);
 
 
-    //TODO: move player zone collision here
-
     // collision detection
     //player
     if(ut::distance2V(_player.getPosition(), _zone.getPosition()) > _zone.getRadius() - _player.getRadius())
@@ -178,6 +176,11 @@ void Game::render()
     _game_window.draw(_circle);
 
     _game_window.draw(_zone);
+
+    for(auto it : _zone.getParticles())
+    {
+        _game_window.draw(it);
+    }
 
     for(auto it : _coin_spawner.getCoins())
     {

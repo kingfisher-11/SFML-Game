@@ -1,0 +1,6 @@
+--implement states
+
+-add red square particles instead of zone border
+-make coins dissappear outside of zone
+-add coin dissappear animation
+-zone reset once a score is reached
