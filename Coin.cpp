@@ -50,11 +50,41 @@ void Coin::update(double dt)
 
             break;
 
+        case vanishing:
+
+            this->setFillColor({255, 255, 0, sf::Uint8(std::max(0, this->getFillColor().a - int(1000 * dt)))});
+
+            if(this->getFillColor().a == 0)
+            {
+                _state = vanished;
+            }
+
+            // break is missing to continue animation while coin is dissappearing
+
         case idle:
 
-            this->setFillColor({255, 255, 0, sf::Uint8(50 * cos(2 * _elapsed) + 205)});
+            if(_state == idle)
+            {
+                this->setFillColor({255, 255, 0, sf::Uint8(50 * cos(2 * _elapsed) + 205)});
+            }
             this->rotate(sin(_elapsed / 2));
 
             break;
+
+
+        
+        default:
+            break;
     }
+}
+
+void Coin::setVanishing()
+{
+    std::cout << "LOL" << std::endl;
+    _state = vanishing;
+}
+
+bool Coin::isVanished()
+{
+    return _state == vanished;
 }

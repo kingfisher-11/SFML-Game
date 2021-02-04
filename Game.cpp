@@ -93,7 +93,7 @@ void Game::updateEvents()
 
     double target_rotation = ut::degrees2V({sin(_player.getRotation() * M_PI / 180), -cos(_player.getRotation() * M_PI / 180)}, mouse_coords - _player.getPosition());
 
-    _player.rotate(target_rotation * _player.getRotationSpeed() * _dt);
+    _player.rotate(target_rotation >= 0 ? std::min(target_rotation * 10 * _dt, _player.getRotationSpeed()) : std::max(target_rotation * 10 * _dt, -_player.getRotationSpeed()));
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
@@ -140,12 +140,19 @@ void Game::update()
     //coins
     for(auto it = _coin_spawner.getCoins().begin(); it != _coin_spawner.getCoins().end();)
     {
-        int distance = std::hypot(it->getPosition().x - _player.getPosition().x, it->getPosition().y - _player.getPosition().y);
-
-        if(distance <= it->getRadius() + _player.getRadius())
+        if(it->isVanished())
+        {
+            it = _coin_spawner.getCoins().erase(it);
+        }
+        else if(ut::distance2V(_player.getPosition(), it->getPosition()) <= it->getRadius() + _player.getRadius())
         {
             it = _coin_spawner.getCoins().erase(it);
             _player.addPoints(1);
+        }
+        else if(ut::distance2V({0.0, 0.0}, it->getPosition()) >= _zone.getRadius() - it->getRadius())
+        {
+            it->setVanishing();
+            it++;
         }
         else
         {

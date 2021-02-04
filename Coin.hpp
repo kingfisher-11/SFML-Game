@@ -14,7 +14,7 @@ class Coin : public sf::CircleShape
 {
 private:
 
-    enum {spawning, idle} _state;
+    enum {spawning, idle, vanishing, vanished} _state;
 
     double _elapsed = 0.0;
 
@@ -28,4 +28,6 @@ public:
     ~Coin();
 
     void update(double);
+    void setVanishing();
+    bool isVanished();
 };
