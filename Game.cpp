@@ -14,7 +14,10 @@ Game::Game()
     _circle.setOrigin(sf::Vector2f(100.0, 100.0));
     _circle.setFillColor(sf::Color::Green);
 
+    _scoreboard.setFillColor({255, 255, 255, 150});
+
     _debug_message.setPosition(0, 20);
+    _debug_message.setVisibility(0);
 }
 
 Game::~Game()
@@ -108,9 +111,6 @@ void Game::updateEvents()
 
 void Game::update()
 {
-    // useful intermediate variables
-    sf::Vector2f player_position = _player.getPosition();
-
     _zone.update(_dt);
 
     _player.update(_dt, _zone);
@@ -122,7 +122,7 @@ void Game::update()
         it->update(_dt);
     }
 
-    _game_view.setCenter(player_position);
+    _game_view.setCenter(_player.getPosition());
 
 
     //collision detection
@@ -161,10 +161,14 @@ void Game::update()
     }
 
     // update messages
-    std::string debug_coordinates_string = "X: " + std::to_string(int(player_position.x)) + "\nY: " + std::to_string(int(player_position.y));
+    std::string debug_coordinates_string = "X: " + std::to_string(int(_player.getPosition().x)) + "\nY: " + std::to_string(int(_player.getPosition().y));
     _debug_message.setString(debug_coordinates_string);
 
-    _scoreboard.setString("Score: " + std::to_string(_player.getScore()));
+    _scoreboard.setString(std::to_string(_player.getScore()));
+
+    sf::FloatRect score_rect = _scoreboard.getLocalBounds();
+    _scoreboard.setOrigin(score_rect.left + score_rect.width / 2, score_rect.top + score_rect.height / 2);
+    _scoreboard.setPosition(_player.getPosition().x, _player.getPosition().y + 80);
 }
 
 void Game::render()
@@ -189,6 +193,8 @@ void Game::render()
         _game_window.draw(it);
     }
 
+    _game_window.draw(_scoreboard);
+
     _game_window.draw(_player);
 
     // interface view
@@ -196,8 +202,6 @@ void Game::render()
 
     if(_debug_message.getVisibility())
         _game_window.draw(_debug_message);
-    
-    _game_window.draw(_scoreboard);
 
 
     _game_window.display();

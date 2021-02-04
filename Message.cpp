@@ -12,7 +12,7 @@ Message::Message(std::string font_file_path)
 
     this->setFont(_font);
     this->setString("Hello");
-    this->setCharacterSize(20);
+    this->setCharacterSize(30);
 }
 
 Message::~Message()

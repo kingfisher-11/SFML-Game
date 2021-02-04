@@ -80,7 +80,6 @@ void Coin::update(double dt)
 
 void Coin::setVanishing()
 {
-    std::cout << "LOL" << std::endl;
     _state = vanishing;
 }
 

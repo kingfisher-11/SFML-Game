@@ -1,10 +1,8 @@
 --implement states
 
-- make coins dissappear outside of zone
-- add coin dissappear animation
-- zone reset once a score is reached
-- move score below player
+
 - ensure coins don't spawn near one another
+- zone reset once a score is reached
 - option for keyboard movement (smoother rotation)
 
 
@@ -14,3 +12,6 @@
 
 Completed:
 - add red square particles instead of zone border
+- make coins dissappear outside of zone
+- add coin dissappear animation
+- move score below player
