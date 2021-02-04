@@ -1,4 +1,3 @@
-------better movement
 --implement states
 
 - make coins dissappear outside of zone
@@ -6,6 +5,7 @@
 - zone reset once a score is reached
 - move score below player
 - ensure coins don't spawn near one another
+- option for keyboard movement (smoother rotation)
 
 
 
