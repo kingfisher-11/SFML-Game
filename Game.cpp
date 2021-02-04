@@ -76,6 +76,7 @@ void Game::updateEvents()
                     
                     case sf::Keyboard::F12:
                         _debug_message.setVisibility(!_debug_message.getVisibility());
+                        break;
                     
                     default:
                         break;
@@ -87,28 +88,22 @@ void Game::updateEvents()
     }
 
 
-    // Keyboard Input
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    // Mouse input
+    sf::Vector2f mouse_coords = _game_window.mapPixelToCoords(sf::Mouse::getPosition(_game_window), _game_view);
+
+    double target_rotation = ut::degrees2V({sin(_player.getRotation() * M_PI / 180), -cos(_player.getRotation() * M_PI / 180)}, mouse_coords - _player.getPosition());
+
+    _player.rotate(target_rotation * _player.getRotationSpeed() * _dt);
+
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
         _player.setVelocity(_player.getVelocity() + _player.getAcceleration() * _dt);
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    else
     {
         _player.setVelocity(_player.getVelocity() - _player.getAcceleration() * _dt);
     }
-    else
-    {
-        _player.setVelocity(_player.getVelocity() - _player.getAcceleration() * _dt / 2);
-    }
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-    {
-        _player.setRotation(_player.getRotation() - _player.getRotationSpeed() * _dt);
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-    {
-        _player.setRotation(_player.getRotation() + _player.getRotationSpeed() * _dt);
-    }
+    
 }
 
 void Game::update()
@@ -130,7 +125,7 @@ void Game::update()
     _game_view.setCenter(player_position);
 
 
-    // collision detection
+    //collision detection
     //player
     if(ut::distance2V(_player.getPosition(), _zone.getPosition()) > _zone.getRadius() - _player.getRadius())
     {
