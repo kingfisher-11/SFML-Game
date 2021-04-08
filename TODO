@@ -1,17 +1,12 @@
---implement states
 
 
-- ensure coins don't spawn near one another
-- zone reset once a score is reached
-- option for keyboard movement (smoother rotation)
+SFML-4:
+    ☐ ensure coins don't spawn near one another @high
+    ☐ zone reset once a score is reached @high
+    ☐ option for keyboard movement (smoother rotation) @low 
+    ☐ implement states @low
 
-
-
-
-
-
-Completed:
-- add red square particles instead of zone border
-- make coins dissappear outside of zone
-- add coin dissappear animation
-- move score below player
+    ✔ add red square particles instead of zone border @done(21-04-07 16:27)
+    ✔ make coins dissappear outside of zone @done(21-04-07 16:27)
+    ✔ add coin dissappear animation @done(21-04-07 16:27)
+    ✔ move score below player @done(21-04-07 16:27)

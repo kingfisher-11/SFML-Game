@@ -7,7 +7,7 @@ Coin::Coin(Zone &zone)
     _zone = &zone;
 
     // randomly generated size, position etc.
-    // 50 is subtracted from distance to ensure that coins are at least 100 px from zone border
+    // 100 is subtracted from distance to ensure that coins are at least 100 px from zone border
     uint angle = ut::randInt(0, 360);
     uint distance_from_origin = ut::randInt(0, std::max(_zone->getRadius() - this->getRadius() - 100, 0.f));
 

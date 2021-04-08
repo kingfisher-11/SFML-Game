@@ -24,10 +24,10 @@ private:
     const u_int _min_radius = 14;
 public:
 
-    Coin(Zone&);
+    Coin(Zone &zone); // TODO: handle position in coinspawner
     ~Coin();
 
-    void update(double);
+    void update(double dt);
     void setVanishing();
     bool isVanished();
 };
