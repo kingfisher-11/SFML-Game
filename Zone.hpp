@@ -14,13 +14,13 @@ private:
 
     enum {shrinking, expanding} _state;
 
-    double _max_radius = 2000;
+    static constexpr double _max_radius = 2000;
     double _elapsed = 0;
 
     std::list<ZoneParticle> _particles;
 public:
 
-    Zone();
+    Zone(double radius = _max_radius);
     ~Zone();
 
     void update(double);

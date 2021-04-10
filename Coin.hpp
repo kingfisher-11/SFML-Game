@@ -24,7 +24,7 @@ private:
     const u_int _min_radius = 14;
 public:
 
-    Coin(Zone &zone); // TODO: handle position in coinspawner
+    Coin(Zone &zone, sf::Vector2f position);
     ~Coin();
 
     void update(double dt);

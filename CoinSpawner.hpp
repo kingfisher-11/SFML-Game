@@ -2,10 +2,12 @@
 
 #include "SFML/System.hpp"
 #include <list>
+#include <cmath>
 #include <iostream>
 
 #include "Coin.hpp"
 #include "Utilities.hpp"
+#include "Player.hpp"
 
 
 class CoinSpawner
@@ -21,5 +23,5 @@ public:
     ~CoinSpawner();
 
     std::list<Coin> &getCoins();
-    void update(Zone&, double);
+    void update(Zone& zone, Player& player, double dt);
 };

@@ -1,14 +1,14 @@
 #include "Zone.hpp"
 
 
-Zone::Zone()
+Zone::Zone(double radius)
 {
     this->setFillColor(sf::Color::Transparent);
     this->setOutlineColor(sf::Color::Transparent);
     this->setOutlineThickness(2.0);
 
-    this->setRadius(_max_radius);
-    this->setOrigin(_max_radius, _max_radius);
+    this->setRadius(radius);
+    this->setOrigin(radius, radius);
     //this->setPosition(_max_radius, _max_radius);
 
     _state = shrinking;
@@ -49,6 +49,9 @@ void Zone::update(double dt)
     switch(_state)
     {
         case shrinking:
+
+            if(this->getRadius() < 5.0)
+                break;
 
             this->setRadius(this->getRadius() - (pow(this->getRadius(), 0.5) + 0.1) * dt);
             this->setOrigin(this->getRadius(), this->getRadius());

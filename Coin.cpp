@@ -1,7 +1,7 @@
 #include "Coin.hpp"
 
 
-Coin::Coin(Zone &zone)
+Coin::Coin(Zone &zone, sf::Vector2f position)
 {
     // pointer to zone in game class
     _zone = &zone;
@@ -13,7 +13,7 @@ Coin::Coin(Zone &zone)
 
     this->setRotation(ut::randInt(0, 360));
     this->setRadius(ut::randInt(_min_radius, _max_radius));
-    this->setPosition(distance_from_origin * sin(angle), distance_from_origin * cos(angle));
+    this->setPosition(position);
 
 
     // set values for color, shape, origin

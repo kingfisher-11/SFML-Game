@@ -115,7 +115,7 @@ void Game::update()
 
     _player.update(_dt, _zone);
 
-    _coin_spawner.update(_zone,_dt);
+    _coin_spawner.update(_zone, _player, _dt);
 
     for(auto it = _coin_spawner.getCoins().begin(); it != _coin_spawner.getCoins().end(); it++)
     {
