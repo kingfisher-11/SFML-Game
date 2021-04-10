@@ -87,3 +87,8 @@ bool Coin::isVanished()
 {
     return _state == vanished;
 }
+
+bool Coin::isVanishing()
+{
+    return _state == vanishing;
+}

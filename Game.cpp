@@ -146,8 +146,11 @@ void Game::update()
         }
         else if(ut::distance2V(_player.getPosition(), it->getPosition()) <= it->getRadius() + _player.getRadius())
         {
-            it = _coin_spawner.getCoins().erase(it);
-            _player.addPoints(1);
+            if(!it->isVanishing())
+                _player.addPoints(1);
+
+            it->setVanishing();
+            it++;
         }
         else if(ut::distance2V({0.0, 0.0}, it->getPosition()) >= _zone.getRadius() - it->getRadius())
         {

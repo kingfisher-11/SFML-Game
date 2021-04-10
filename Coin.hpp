@@ -30,4 +30,5 @@ public:
     void update(double dt);
     void setVanishing();
     bool isVanished();
+    bool isVanishing();
 };
