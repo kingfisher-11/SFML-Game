@@ -24,7 +24,7 @@ private:
     double _velocity;
     double _rotation_speed = 5.0;
     double _collision_circle = 30.0;
-    int _score = 0;
+    uint _score = 0;
 
     sf::Texture _texture;
     //sf::Sprite _player_sprite;
@@ -39,9 +39,8 @@ public:
     const double getRadius();
     const int getScore();
 
-
     void setVelocity(double);
-    void addPoints(uint);
+    void setScore(uint);
 
     void update(double, Zone&);
 };

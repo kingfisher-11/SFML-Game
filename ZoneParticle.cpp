@@ -8,7 +8,7 @@ ZoneParticle::ZoneParticle(sf::Vector2f position)
     this->setFillColor(sf::Color::Red);
 
     // initialize random values for attributes
-    _lifespan = ut::randDouble(0.1, 2.0);
+    _lifespan = ut::randDouble(0.1, 1.0);
     _velocity = {(float)ut::randDouble(-30.0, 30.0), (float)ut::randDouble(-30.0, 30.0)};
 }
 

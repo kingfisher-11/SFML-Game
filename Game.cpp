@@ -18,6 +18,8 @@ Game::Game()
 
     _debug_message.setPosition(0, 20);
     _debug_message.setVisibility(0);
+
+    _target = 1;
 }
 
 Game::~Game()
@@ -117,12 +119,15 @@ void Game::update()
 
     _coin_spawner.update(_zone, _player, _dt);
 
-    for(auto it = _coin_spawner.getCoins().begin(); it != _coin_spawner.getCoins().end(); it++)
-    {
-        it->update(_dt);
-    }
-
     _game_view.setCenter(_player.getPosition());
+
+    //manage reaching target score
+    if(_player.getScore() >= _target)
+    {
+        _target += 10;
+        _player.setScore(0);
+        _zone.setExpanding();
+    }
 
 
     //collision detection
@@ -147,7 +152,7 @@ void Game::update()
         else if(ut::distance2V(_player.getPosition(), it->getPosition()) <= it->getRadius() + _player.getRadius())
         {
             if(!it->isVanishing())
-                _player.addPoints(1);
+                _player.setScore(_player.getScore() + 1);
 
             it->setVanishing();
             it++;

@@ -51,9 +51,9 @@ void Player::setVelocity(double velocity)
     _velocity = std::max(std::min(velocity, _max_velocity), 0.0);
 }
 
-void Player::addPoints(uint points)
+void Player::setScore(uint score)
 {
-    _score += points;
+    _score = score;
 }
 
 

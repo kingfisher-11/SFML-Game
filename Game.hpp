@@ -18,8 +18,9 @@ class Game
 {
 private:
 
-    // control for game state
+    // variables
     bool _is_game_running = true;
+    uint _target;
 
     // objects
     Message _debug_message;
