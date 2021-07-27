@@ -1,6 +1,5 @@
-
-
 SFML-4:
+    ☐ refractor code @high 
     ☐ option for keyboard movement (smoother rotation) @low 
     ☐ ensure coins don't spawn near one another @low
     ☐ implement states @low

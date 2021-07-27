@@ -1,4 +1,4 @@
-#include "CoinSpawner.hpp"
+#include "CoinManager.hpp"
 
 
 CoinSpawner::CoinSpawner()

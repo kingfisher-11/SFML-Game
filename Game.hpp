@@ -20,14 +20,14 @@ private:
 
     // variables
     bool _is_game_running = true;
-    uint _target;
+    uint _coin_target;
 
     // objects
     Message _debug_message;
     Message _scoreboard;
     Player _player;
     Zone _zone;
-    CoinSpawner _coin_spawner;
+    CoinSpawner _coin_manager;
     sf::CircleShape _circle;
 
     // rendering utils
@@ -46,7 +46,7 @@ public:
     void run();
 
     void updateDt();
-    void updateEvents();
+    void getInput();
     void update();
     void render();
 };

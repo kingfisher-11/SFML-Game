@@ -55,7 +55,7 @@ void Zone::update(double dt)
             if(this->getRadius() < 5.0)
                 break;
 
-            this->setRadius(this->getRadius() - (pow(this->getRadius(), 0.5) + 100) * dt);
+            this->setRadius(this->getRadius() - (pow(this->getRadius(), 0.5) + 10) * dt);
             this->setOrigin(this->getRadius(), this->getRadius());
             break;
 

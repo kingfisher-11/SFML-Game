@@ -19,7 +19,7 @@ Game::Game()
     _debug_message.setPosition(0, 20);
     _debug_message.setVisibility(0);
 
-    _target = 1;
+    _coin_target = 10;
 }
 
 Game::~Game()
@@ -32,12 +32,8 @@ void Game::run()
 {
     while(_is_game_running)
     {
-        updateDt();
-
-        updateEvents();
-
+        getInput();
         update();
-
         render();
     }
 }
@@ -48,7 +44,7 @@ void Game::updateDt()
     _dt = _game_clock.restart().asSeconds();
 }
 
-void Game::updateEvents()
+void Game::getInput()
 {
     sf::Event event;
 
@@ -96,7 +92,7 @@ void Game::updateEvents()
     // Mouse input
     sf::Vector2f mouse_coords = _game_window.mapPixelToCoords(sf::Mouse::getPosition(_game_window), _game_view);
 
-    double target_rotation = ut::degrees2V({sin(_player.getRotation() * M_PI / 180), -cos(_player.getRotation() * M_PI / 180)}, mouse_coords - _player.getPosition());
+    double target_rotation = ut::degrees2V({(float)sin(_player.getRotation() * M_PI / 180), (float)-cos(_player.getRotation() * M_PI / 180)}, mouse_coords - _player.getPosition());
 
     _player.rotate(target_rotation >= 0 ? std::min(target_rotation * 10 * _dt, _player.getRotationSpeed()) : std::max(target_rotation * 10 * _dt, -_player.getRotationSpeed()));
 
@@ -113,18 +109,20 @@ void Game::updateEvents()
 
 void Game::update()
 {
+    updateDt();
+
     _zone.update(_dt);
 
     _player.update(_dt, _zone);
 
-    _coin_spawner.update(_zone, _player, _dt);
+    _coin_manager.update(_zone, _player, _dt);
 
     _game_view.setCenter(_player.getPosition());
 
     //manage reaching target score
-    if(_player.getScore() >= _target)
+    if(_player.getScore() >= _coin_target)
     {
-        _target += 10;
+        _coin_target += 10;
         _player.setScore(0);
         _zone.setExpanding();
     }
@@ -143,11 +141,11 @@ void Game::update()
 
 
     //coins
-    for(auto it = _coin_spawner.getCoins().begin(); it != _coin_spawner.getCoins().end();)
+    for(auto it = _coin_manager.getCoins().begin(); it != _coin_manager.getCoins().end();)
     {
         if(it->isVanished())
         {
-            it = _coin_spawner.getCoins().erase(it);
+            it = _coin_manager.getCoins().erase(it);
         }
         else if(ut::distance2V(_player.getPosition(), it->getPosition()) <= it->getRadius() + _player.getRadius())
         {
@@ -196,7 +194,7 @@ void Game::render()
         _game_window.draw(it);
     }
 
-    for(auto it : _coin_spawner.getCoins())
+    for(auto it : _coin_manager.getCoins())
     {
         _game_window.draw(it);
     }
