@@ -1,34 +1,31 @@
 #include "CoinManager.hpp"
 
 
-CoinSpawner::CoinSpawner()
+CoinManager::CoinManager(Zone &zone, Player &player)
+:_zone(zone), _player(player)
 {
-    _spawn_delay = 0;
-    _coins.clear();
+
 }
 
-CoinSpawner::~CoinSpawner()
+CoinManager::~CoinManager()
 {
     
 }
 
 
-std::list<Coin> &CoinSpawner::getCoins()
+void CoinManager::update(double dt)
 {
-    return _coins;
-}
-
-void CoinSpawner::update(Zone &zone, Player &player, double dt)
-{
-    _elapsed += dt;
+    static double elapsed;
+    static double spawn_delay;
+    elapsed += dt;
 
     // spawn coin if conditions are met
-    if((_elapsed > _spawn_delay) && _coins.size() < 40)
+    if((elapsed > spawn_delay) && _coins.size() < 40)
     {
-        _elapsed = 0;
-        _spawn_delay = ut::randDouble(1.5, 2.0);
+        elapsed = 0;
+        spawn_delay = ut::randDouble(0.1, 0.5);
 
-        uint player_dist_from_origin = ut::distance2V({0, 0}, player.getPosition());
+        uint player_dist_from_origin = ut::distance2V({0, 0}, _player.getPosition());
         uint angle = ut::randInt(0, 360);
         uint distance_from_origin = 0;
 
@@ -36,18 +33,18 @@ void CoinSpawner::update(Zone &zone, Player &player, double dt)
         // TODO: use to make coins spawn away from each other (maybe)
         while(true)
         {
-            // this is to prevent the loop from freezing the game when coins can't spawn
-            if(zone.getRadius() < 200 + player.getRadius() * 2)
+            // prevent the loop from freezing the game when coins can't spawn
+            if(_zone.getRadius() < 200 + _player.getRadius() * 2)
                 break;
 
-            distance_from_origin = ut::randInt(0, std::max(zone.getRadius() - 100, 0.f));
+            distance_from_origin = ut::randInt(0, std::max(_zone.getRadius() - 100, 0.f));
 
-            if(abs(player_dist_from_origin - distance_from_origin) < player.getRadius() * 2)
+            if(abs(player_dist_from_origin - distance_from_origin) < _player.getRadius() * 2)
                 continue;
 
             sf::Vector2f coin_position = {distance_from_origin * sin(angle), distance_from_origin * cos(angle)};
 
-            _coins.push_back({zone, coin_position});
+            _coins.push_back({_zone, coin_position});
 
             break;
         }
@@ -56,4 +53,9 @@ void CoinSpawner::update(Zone &zone, Player &player, double dt)
     // updates all coins
     for(auto &it : _coins)
         it.update(dt);
+}
+
+std::list<Coin> &CoinManager::getCoins()
+{
+    return _coins;
 }

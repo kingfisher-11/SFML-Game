@@ -10,7 +10,7 @@
 #include "Message.hpp"
 #include "Zone.hpp"
 #include "Coin.hpp"
-#include "CoinSpawner.hpp"
+#include "CoinManager.hpp"
 #include "Utilities.hpp"
 
 
@@ -27,7 +27,7 @@ private:
     Message _scoreboard;
     Player _player;
     Zone _zone;
-    CoinSpawner _coin_manager;
+    CoinManager _coin_manager;
     sf::CircleShape _circle;
 
     // rendering utils

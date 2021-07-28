@@ -2,6 +2,7 @@
 
 
 Game::Game()
+:_coin_manager(_zone, _player)
 {
     _game_window.create(sf::VideoMode(800, 600), "Game");
     _game_window.setFramerateLimit(60);
@@ -115,7 +116,7 @@ void Game::update()
 
     _player.update(_dt, _zone);
 
-    _coin_manager.update(_zone, _player, _dt);
+    _coin_manager.update(_dt);
 
     _game_view.setCenter(_player.getPosition());
 

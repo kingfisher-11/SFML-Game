@@ -10,18 +10,18 @@
 #include "Player.hpp"
 
 
-class CoinSpawner
+class CoinManager
 {
 private:
 
-    double _elapsed;
-    int _spawn_delay;
+    Player &_player;
+    Zone &_zone;
     std::list<Coin> _coins = {};
 public:
 
-    CoinSpawner();
-    ~CoinSpawner();
+    CoinManager(Zone &zone, Player &player);
+    ~CoinManager();
 
+    void update(double dt);
     std::list<Coin> &getCoins();
-    void update(Zone& zone, Player& player, double dt);
 };
