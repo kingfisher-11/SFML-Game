@@ -15,8 +15,11 @@ class CoinManager
 private:
 
     Player &_player;
-    Zone &_zone;
+    const Zone &_zone;
     std::list<Coin> _coins = {};
+
+    void spawnCoin();
+    void updateCoins(double dt);
 public:
 
     CoinManager(Zone &zone, Player &player);

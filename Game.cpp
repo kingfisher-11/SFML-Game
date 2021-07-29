@@ -139,34 +139,7 @@ void Game::update()
     {
         _player.setColor(sf::Color::Red);
     }
-
-
-    //coins
-    for(auto it = _coin_manager.getCoins().begin(); it != _coin_manager.getCoins().end();)
-    {
-        if(it->isVanished())
-        {
-            it = _coin_manager.getCoins().erase(it);
-        }
-        else if(ut::distance2V(_player.getPosition(), it->getPosition()) <= it->getRadius() + _player.getRadius())
-        {
-            if(!it->isVanishing())
-                _player.setScore(_player.getScore() + 1);
-
-            it->setVanishing();
-            it++;
-        }
-        else if(ut::distance2V({0.0, 0.0}, it->getPosition()) >= _zone.getRadius() - it->getRadius())
-        {
-            it->setVanishing();
-            it++;
-        }
-        else
-        {
-            it++;
-        }
-    }
-
+    
     // update messages
     std::string debug_coordinates_string = "X: " + std::to_string(int(_player.getPosition().x)) + "\nY: " + std::to_string(int(_player.getPosition().y));
     _debug_message.setString(debug_coordinates_string);

@@ -33,11 +33,11 @@ public:
     Player(sf::Vector2i = {0, 0});
     ~Player();
 
-    const double getAcceleration();
-    const double getRotationSpeed();
-    const double getVelocity();
-    const double getRadius();
-    const int getScore();
+    double getAcceleration() const;
+    double getRotationSpeed() const;
+    double getVelocity() const;
+    double getRadius() const;
+    int getScore() const;
 
     void setVelocity(double);
     void setScore(uint);

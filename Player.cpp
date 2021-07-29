@@ -20,27 +20,27 @@ Player::~Player()
 }
 
 
-const double Player::getAcceleration()
+double Player::getAcceleration() const
 {
     return _acceleration;
 }
 
-const double Player::getRotationSpeed()
+double Player::getRotationSpeed() const
 {
     return _rotation_speed;
 }
 
-const double Player::getVelocity()
+double Player::getVelocity() const
 {
     return _velocity;
 }
 
-const double Player::getRadius()
+double Player::getRadius() const
 {
     return _collision_circle;
 }
 
-const int Player::getScore()
+int Player::getScore() const
 {
     return _score;
 }

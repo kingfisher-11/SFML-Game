@@ -18,13 +18,15 @@ private:
 
     double _elapsed = 0.0;
 
-    Zone *_zone;
+    const Zone &_zone;
 
     const u_int _max_radius = 20;
     const u_int _min_radius = 14;
+
+    
 public:
 
-    Coin(Zone &zone, sf::Vector2f position);
+    Coin(const Zone &zone, sf::Vector2f position);
     ~Coin();
 
     void update(double dt);

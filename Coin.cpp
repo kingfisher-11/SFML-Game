@@ -1,15 +1,13 @@
 #include "Coin.hpp"
 
 
-Coin::Coin(Zone &zone, sf::Vector2f position)
+Coin::Coin(const Zone &zone, sf::Vector2f position)
+:_zone(zone)
 {
-    // pointer to zone in game class
-    _zone = &zone;
-
     // randomly generated size, position etc.
     // 100 is subtracted from distance to ensure that coins are at least 100 px from zone border
     uint angle = ut::randInt(0, 360);
-    uint distance_from_origin = ut::randInt(0, std::max(_zone->getRadius() - this->getRadius() - 100, 0.f));
+    uint distance_from_origin = ut::randInt(0, std::max(_zone.getRadius() - this->getRadius() - 100, 0.f));
 
     this->setRotation(ut::randInt(0, 360));
     this->setRadius(ut::randInt(_min_radius, _max_radius));
@@ -27,7 +25,7 @@ Coin::Coin(Zone &zone, sf::Vector2f position)
 
 Coin::~Coin()
 {
-    _zone = nullptr;
+
 }
 
 
@@ -71,8 +69,6 @@ void Coin::update(double dt)
 
             break;
 
-
-        
         default:
             break;
     }
