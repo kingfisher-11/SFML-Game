@@ -12,6 +12,7 @@ Coin::Coin(const Zone &zone, sf::Vector2f position)
     this->setRotation(ut::randInt(0, 360));
     this->setRadius(ut::randInt(_min_radius, _max_radius));
     this->setPosition(position);
+    _rotation_speed = ut::randInt(45, 180);
 
 
     // set values for color, shape, origin
@@ -38,7 +39,7 @@ void Coin::update(double dt)
         case spawning:
             
             this->setFillColor({255, 255, 0, sf::Uint8(std::min(_elapsed, 3.0) * 85)});
-            this->rotate(pow(2, 6 - 4 * _elapsed));
+            this->rotate(360 * (1.74 - sqrt(_elapsed)) * dt);
 
             if(_elapsed > 3.0)
             {
@@ -65,7 +66,7 @@ void Coin::update(double dt)
             {
                 this->setFillColor({255, 255, 0, sf::Uint8(50 * cos(2 * _elapsed) + 205)});
             }
-            this->rotate(sin(_elapsed / 2));
+            this->rotate(_rotation_speed * sin(0.5 * _elapsed) * dt);
 
             break;
 
@@ -79,12 +80,12 @@ void Coin::setVanishing()
     _state = vanishing;
 }
 
-bool Coin::isVanished()
+bool Coin::isVanished() const
 {
     return _state == vanished;
 }
 
-bool Coin::isVanishing()
+bool Coin::isVanishing() const
 {
     return _state == vanishing;
 }

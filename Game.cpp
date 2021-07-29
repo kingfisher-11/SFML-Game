@@ -21,6 +21,8 @@ Game::Game()
     _debug_message.setVisibility(0);
 
     _coin_target = 10;
+
+    _game_window.setFramerateLimit(10);
 }
 
 Game::~Game()
@@ -95,7 +97,7 @@ void Game::getInput()
 
     double target_rotation = ut::degrees2V({(float)sin(_player.getRotation() * M_PI / 180), (float)-cos(_player.getRotation() * M_PI / 180)}, mouse_coords - _player.getPosition());
 
-    _player.rotate(target_rotation >= 0 ? std::min(target_rotation * 10 * _dt, _player.getRotationSpeed()) : std::max(target_rotation * 10 * _dt, -_player.getRotationSpeed()));
+    _player.rotate(target_rotation >= 0 ? std::min(target_rotation * 10 * _dt, _player.getRotationSpeed() * _dt) : std::max(target_rotation * 10 * _dt, -_player.getRotationSpeed() * _dt));
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {

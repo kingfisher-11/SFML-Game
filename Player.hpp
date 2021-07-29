@@ -22,7 +22,7 @@ private:
     double _acceleration = 1000.0;
     double _max_velocity = 800.0;
     double _velocity;
-    double _rotation_speed = 5.0;
+    double _rotation_speed = 360.0;
     double _collision_circle = 30.0;
     uint _score = 0;
 
