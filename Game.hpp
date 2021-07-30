@@ -38,15 +38,15 @@ private:
     // game time management
     sf::Clock _game_clock;
     double _dt;
+
+    void updateDt();
+    void getInput();
+    void update();
+    void render();
 public:
 
     Game();
     ~Game();
     
     void run();
-
-    void updateDt();
-    void getInput();
-    void update();
-    void render();
 };
