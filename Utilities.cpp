@@ -1,7 +1,7 @@
 #include "Utilities.hpp"
 
 
-int ut::randInt(const int lower_bound, const int upper_bound)
+int ut::randInt(int lower_bound, int upper_bound)
 {
     static std::random_device rd;
     static std::mt19937 rng{rd()};
@@ -9,7 +9,15 @@ int ut::randInt(const int lower_bound, const int upper_bound)
     return std::uniform_int_distribution<int>{lower_bound, upper_bound}(rng);
 }
 
-double ut::randDouble(const double lower_bound, const double upper_bound)
+float ut::randFloat(float lower_bound, float upper_bound)
+{
+    static std::random_device rd;
+    static std::mt19937 rng{rd()};
+
+    return std::uniform_real_distribution<float>{lower_bound, upper_bound}(rng);
+}
+
+double ut::randDouble(double lower_bound, double upper_bound)
 {
     static std::random_device rd;
     static std::mt19937 rng{rd()};

@@ -5,11 +5,13 @@ ZoneParticle::ZoneParticle(sf::Vector2f position)
 {
     this->setPosition(position);
     this->setSize({10.0, 10.0});
+    this->setOrigin({5.0, 5.0});
+    this->setRotation(ut::randFloat(0.0, 360.0));
     this->setFillColor(sf::Color::Red);
 
     // initialize random values for attributes
-    _lifespan = ut::randDouble(0.1, 1.0);
-    _velocity = {(float)ut::randDouble(-30.0, 30.0), (float)ut::randDouble(-30.0, 30.0)};
+    _lifespan = ut::randDouble(0.5, 2.0);
+    _velocity = {ut::randFloat(-60.0, 60.0), ut::randFloat(-60.0, 60.0)};
 }
 
 ZoneParticle::~ZoneParticle()
@@ -29,6 +31,7 @@ void ZoneParticle::update(double dt)
     }
 
     this->move(_velocity * (float)dt);
+    this->rotate(90 * dt);
     this->setFillColor({255, 0, 0, sf::Uint8(sin(M_PI * _elapsed / _lifespan) * 255)});
 }
 

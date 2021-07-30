@@ -20,12 +20,9 @@ Zone::~Zone()
 }
 
 
-void Zone::update(double dt)
+void Zone::updateParticles(double dt)
 {
-    _elapsed += dt;
-
-    //particle updates
-    while(_particles.size() < this->getRadius() + 100)
+    while(_particles.size() < this->getRadius() * 2 + 100)
     {
         double angle = (double)ut::randInt(0, 3600) / 10.0;
         const double deviation = 20;
@@ -46,6 +43,13 @@ void Zone::update(double dt)
             it++;
         }   
     }
+}
+
+
+void Zone::update(double dt)
+{
+    //particle updates
+    updateParticles(dt);
 
     // state based changes
     switch(_state)
@@ -66,7 +70,6 @@ void Zone::update(double dt)
             if(this->getRadius() >= _max_radius)
             {
                 this->setRadius(_max_radius);
-                _elapsed = 0.0;
                 _state = shrinking;
             }
 

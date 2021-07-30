@@ -20,9 +20,10 @@ Game::Game()
     _debug_message.setPosition(0, 20);
     _debug_message.setVisibility(0);
 
-    _coin_target = 10;
+    _coin_target = 1;
 
-    _game_window.setFramerateLimit(10);
+    // for testing
+    //_game_window.setFramerateLimit(10);
 }
 
 Game::~Game()
@@ -80,6 +81,10 @@ void Game::getInput()
                     
                     case sf::Keyboard::F12:
                         _debug_message.setVisibility(!_debug_message.getVisibility());
+                        break;
+
+                    case sf::Keyboard::Equal:
+                        _player.setScore(INT16_MAX);
                         break;
                     
                     default:

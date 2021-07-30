@@ -19,12 +19,14 @@ private:
     double _elapsed = 0;
 
     std::list<ZoneParticle> _particles;
+
+    void updateParticles(double dt);
 public:
 
     Zone();
     ~Zone();
 
-    void update(double);
+    void update(double dt);
     const std::list<ZoneParticle> &getParticles();
 
     void setExpanding();
