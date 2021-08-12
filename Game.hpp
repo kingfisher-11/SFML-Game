@@ -12,6 +12,7 @@
 #include "Coin.hpp"
 #include "CoinManager.hpp"
 #include "Utilities.hpp"
+#include "GameWindow.hpp"
 
 
 class Game
@@ -31,7 +32,8 @@ private:
     sf::CircleShape _circle;
 
     // rendering utils
-    sf::RenderWindow _game_window;
+    //GameWindow _window;
+    sf::RenderWindow _game_window; // todo: implement GameWindow class
     sf::View _game_view;
     sf::View _HUD_view;
 
